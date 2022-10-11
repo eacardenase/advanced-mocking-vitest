@@ -13,6 +13,7 @@ export async function sendDataRequest(data) {
     const responseData = await response.json();
 
     if (!response.ok) {
+        // throw new Error('Built in error!');
         throw new HttpError(
             response.status,
             'Sending the request failed.',
