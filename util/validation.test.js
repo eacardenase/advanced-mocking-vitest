@@ -45,6 +45,6 @@ describe('validateNotEmpty()', () => {
 
         const resultFn = () => validateNotEmpty(input, errorMessage);
 
-        expect(resultFn).toThrow('error');
+        expect(resultFn).toThrow(errorMessage);
     });
 });
