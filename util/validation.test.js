@@ -21,18 +21,10 @@ describe('validateNotEmpty()', () => {
         const input3 = undefined;
         const input4 = '';
 
-        const result1 = () => {
-            validateNotEmpty(input1, errorMessage);
-        };
-        const result2 = () => {
-            validateNotEmpty(input2, errorMessage);
-        };
-        const result3 = () => {
-            validateNotEmpty(input3, errorMessage);
-        };
-        const result4 = () => {
-            validateNotEmpty(input4, errorMessage);
-        };
+        const result1 = () => validateNotEmpty(input1, errorMessage);
+        const result2 = () => validateNotEmpty(input2, errorMessage);
+        const result3 = () => validateNotEmpty(input3, errorMessage);
+        const result4 = () => validateNotEmpty(input4, errorMessage);
 
         expect(result1).toThrow();
         expect(result2).toThrow();
@@ -43,10 +35,16 @@ describe('validateNotEmpty()', () => {
     it('should throw an error if a long string of white spaces is provided as text argument', () => {
         const input = '                  ';
 
-        const resultFn = () => {
-            validateNotEmpty(input, errorMessage);
-        };
+        const resultFn = () => validateNotEmpty(input, errorMessage);
 
         expect(resultFn).toThrow();
+    });
+
+    it('should throw an error with the provided error message', () => {
+        const input = '';
+
+        const resultFn = () => validateNotEmpty(input, errorMessage);
+
+        expect(resultFn).toThrow('error');
     });
 });
