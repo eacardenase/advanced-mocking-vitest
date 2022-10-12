@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { it, vi } from 'vitest';
+import { beforeEach, expect, it, vi, describe } from 'vitest';
 import { Window } from 'happy-dom';
 
 import { showError } from './dom';
@@ -11,12 +11,28 @@ const htmlDocumentContent = fs.readFileSync(htmlDocPath, 'utf8');
 
 const window = new Window();
 const document = window.document;
-document.write(htmlDocumentContent);
 
 vi.stubGlobal('document', document);
 
-console.log(htmlDocumentContent);
+describe('dom elements', () => {
+    beforeEach(() => {
+        document.body.innerHTML = '';
+        document.write(htmlDocumentContent);
+    });
 
-it('first test', () => {
-    showError('test');
+    it('should add an error paragraph to the id="errors" element', () => {
+        showError('Test error');
+
+        const errorsEl = document.getElementById('errors');
+        const errorParagraph = errorsEl.firstElementChild;
+
+        expect(errorParagraph).not.toBeNull();
+    });
+
+    it('should not contain an error paragraph initially', () => {
+        const errorsEl = document.getElementById('errors');
+        const errorParagraph = errorsEl.firstElementChild;
+
+        expect(errorParagraph).toBeNull();
+    });
 });
